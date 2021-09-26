@@ -17,18 +17,18 @@ class GetCoinUseCase @Inject constructor(
 ) {
     operator fun invoke(coinId: String) : Flow<Resource<CoinDetail>> = flow{
         try{
-            emit(Resource.Loading())
+            emit(Resource.Loading<CoinDetail>())
             val coin = repository.getCoinById(coinId).toCoinDetail()
-            emit(Resource.Success(coin))
+            emit(Resource.Success<CoinDetail>(coin))
         }
         catch (e: HttpException){
-            emit(Resource.Error(message = e.localizedMessage ?: "An unexpected error occurred"))
+            emit(Resource.Error<CoinDetail>(message = e.localizedMessage ?: "An unexpected error occurred"))
         }
         catch(e: IOException){
-            emit(Resource.Error(message = "couldn't read server. Check your internet connection"))
+            emit(Resource.Error<CoinDetail>(message = "couldn't read server. Check your internet connection"))
         }
         catch(e: Exception){
-            emit(Resource.Error(message = "An unexpected error occurred"))
+            emit(Resource.Error<CoinDetail>(message = "An unexpected error occurred"))
         }
     }
 }
