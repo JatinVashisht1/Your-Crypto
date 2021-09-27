@@ -38,7 +38,7 @@ class CoinDetailViewModel @Inject constructor(
                 }
 
                 is Resource.Error ->{
-                    _state.value = CoinDetailState(error = result.message ?: "An unexpected error occured")
+                    _state.value = CoinDetailState(error = result.message ?: "An unexpected error occurred")
                 }
                 is Resource.Loading ->{
                     _state.value = CoinDetailState(isLoading = true)
